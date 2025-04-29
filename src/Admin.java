@@ -1,5 +1,3 @@
-//Group member B
-
 package src;
 
 import java.util.ArrayList;
@@ -7,10 +5,10 @@ import java.util.List;
 import java.time.LocalDateTime;
 
 public class Admin {
-    private String adminId;
-    private String name;
-    private String email;
-    private String role;  // e.g., "Support Staff", "System Admin", etc.
+    private final String adminId;
+    private final String name;
+    private final String email;
+    private final String role;
 
     public Admin(String adminId, String name, String email, String role) {
         this.adminId = adminId;
@@ -20,51 +18,42 @@ public class Admin {
     }
 
     // Getters
-    public String getAdminId() {
-        return adminId;
-    }
+    public String getAdminId() { return adminId; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getRole() { return role; }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    // Admin-specific methods for appointment management
+    // Approve an appointment
     public boolean approveAppointment(Appointment appointment) {
-        if (appointment != null && appointment.getStatus() == AppointmentStatus.SCHEDULED) {
+        if (isValidAppointment(appointment, AppointmentStatus.SCHEDULED)) {
             appointment.setStatus(AppointmentStatus.APPROVED);
-            System.out.println("Appointment " + appointment.getAppointmentId() + " approved by admin " + this.name);
+            logAction("approved", appointment);
             return true;
         }
         return false;
     }
 
+    // Cancel an appointment
     public boolean cancelAppointment(Appointment appointment) {
-        if (appointment != null && appointment.getStatus() != AppointmentStatus.CANCELLED) {
+        if (isValidAppointment(appointment, AppointmentStatus.CANCELLED)) {
             appointment.setStatus(AppointmentStatus.CANCELLED);
-            System.out.println("Appointment " + appointment.getAppointmentId() + " cancelled by admin " + this.name);
+            logAction("cancelled", appointment);
             return true;
         }
         return false;
     }
 
+    // Reschedule an appointment
     public boolean rescheduleAppointment(Appointment appointment, LocalDateTime newDateTime) {
-        if (appointment != null && appointment.getStatus() != AppointmentStatus.CANCELLED) {
+        if (isValidAppointment(appointment, AppointmentStatus.CANCELLED)) {
             appointment.setDateTime(newDateTime);
-            System.out.println("Appointment " + appointment.getAppointmentId() + " rescheduled by admin " + this.name);
+            logAction("rescheduled", appointment);
             return true;
         }
         return false;
     }
 
-    // Admin power: View all appointments for a specific category
+    // Filter appointments by category
     public List<Appointment> getAppointmentsByCategory(List<Appointment> allAppointments, Category category) {
         List<Appointment> filteredAppointments = new ArrayList<>();
         for (Appointment appointment : allAppointments) {
@@ -75,64 +64,50 @@ public class Admin {
         return filteredAppointments;
     }
 
-    // Admin power: Get statistics about appointments
+    // Generate appointment statistics
     public String getAppointmentStatistics(List<Appointment> allAppointments) {
-        int totalAppointments = allAppointments.size();
-        int scheduledAppointments = 0;
-        int approvedAppointments = 0;
-        int completedAppointments = 0;
-        int cancelledAppointments = 0;
+        int total = allAppointments.size();
+        int scheduled = 0, approved = 0, completed = 0, cancelled = 0;
 
         for (Appointment appointment : allAppointments) {
             switch (appointment.getStatus()) {
-                case SCHEDULED:
-                    scheduledAppointments++;
-                    break;
-                case APPROVED:
-                    approvedAppointments++;
-                    break;
-                case COMPLETED:
-                    completedAppointments++;
-                    break;
-                case CANCELLED:
-                    cancelledAppointments++;
-                    break;
+                case SCHEDULED -> scheduled++;
+                case APPROVED -> approved++;
+                case COMPLETED -> completed++;
+                case CANCELLED -> cancelled++;
             }
         }
 
         return String.format("""
             Appointment Statistics:
-            Total Appointments: %d
-            Scheduled: %d
-            Approved: %d
-            Completed: %d
-            Cancelled: %d
-            """, 
-            totalAppointments, scheduledAppointments, approvedAppointments, 
-            completedAppointments, cancelledAppointments);
+            Total: %d | Scheduled: %d | Approved: %d | Completed: %d | Cancelled: %d
+            """, total, scheduled, approved, completed, cancelled);
+    }
+
+    // Helper: Check if an appointment is valid for an action
+    private boolean isValidAppointment(Appointment appointment, AppointmentStatus invalidStatus) {
+        return appointment != null && appointment.getStatus() != invalidStatus;
+    }
+
+    // Helper: Log admin actions
+    private void logAction(String action, Appointment appointment) {
+        System.out.printf("Appointment %d %s by admin %s%n", 
+                          appointment.getAppointmentId(), action, name);
     }
 
     @Override
     public String toString() {
-        return "Admin{" +
-               "adminId='" + adminId + '\'' +
-               ", name='" + name + '\'' +
-               ", email='" + email + '\'' +
-               ", role='" + role + '\'' +
-               '}';
+        return String.format("Admin{id='%s', name='%s', email='%s', role='%s'}", 
+                              adminId, name, email, role);
     }
 
-    // equals and hashCode based on adminId for comparisons
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Admin admin = (Admin) o;
-        return java.util.Objects.equals(adminId, admin.adminId);
+    public boolean equals(Object obj) {
+        return this == obj || (obj instanceof Admin admin && adminId.equals(admin.adminId));
     }
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(adminId);
+        return adminId.hashCode();
     }
-} 
+}
