@@ -43,19 +43,7 @@ public class Student {
         }
     }
 
-    // --- Method Stubs for Student A features ---
-
-    // a) Request Appointment (Logic might be better in CampusAssistSystem or ConsoleUI)
-    // This method might just create an Appointment object or return necessary info
-    // public Appointment requestAppointment(Category category, LocalDateTime dateTime) {
-    //     // Actual creation and scheduling might happen elsewhere
-    //     System.out.println("DEBUG: Student requesting appointment: " + category + " at " + dateTime);
-    //     Appointment newAppt = new Appointment(this, category, dateTime);
-    //     // It should be added to the main system list and then linked here
-    //     // addAppointment(newAppt); // This might cause issues if system doesn't know
-    //     return newAppt; // Return the potential appointment
-    // }
-
+   
     // b) View Appointments (Split into upcoming/past)
     public List<Appointment> getUpcomingAppointments() {
         List<Appointment> upcoming = new ArrayList<>();
@@ -65,7 +53,7 @@ public class Student {
                 upcoming.add(appt);
             }
         }
-        // Optional: Sort by date
+        // Sort by date
         upcoming.sort((a1, a2) -> a1.getDateTime().compareTo(a2.getDateTime()));
         return upcoming;
     }
@@ -78,7 +66,7 @@ public class Student {
                 past.add(appt);
             }
         }
-         // Optional: Sort by date descending
+         // Sort by date descending 
         past.sort((a1, a2) -> a2.getDateTime().compareTo(a1.getDateTime()));
         return past;
     }
@@ -99,9 +87,7 @@ public class Student {
         }
 
         Feedback newFeedback = new Feedback(appointment, rating, comments);
-        appointment.setFeedback(newFeedback); // Link feedback to appointment
-        // Optional: Link appointment to feedback if needed
-        // newFeedback.setAppointment(appointment); // Requires setter in Feedback
+        appointment.setFeedback(newFeedback); 
         System.out.println("Feedback submitted successfully for appointment " + appointment.getAppointmentId());
         return newFeedback;
     }

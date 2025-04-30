@@ -177,7 +177,7 @@ public class ConsoleUI {
                     handleCancelAppointment(admin);
                     break;
                 case 0:
-                    return; // Return to main admin menu
+                    return; 
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -187,7 +187,7 @@ public class ConsoleUI {
 
     private void handleRequestAppointment(Student student) {
         System.out.println("\n--- Request Support Session ---");
-        if (student == null) return; // Should not happen if called from menu
+        if (student == null) return; // Should not happen 
 
         // Select Category
         System.out.println("Select a category:");

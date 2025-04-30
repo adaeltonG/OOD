@@ -11,13 +11,12 @@ public enum Category {
         this.displayName = displayName;
     }
 
-    // Method to get the display name (e.g., "MENTAL-HEALTH")
+    // Method to get the display name ("MENTAL-HEALTH")
     public String getDisplayName() {
         return displayName;
     }
 
-    // Optional: Override toString() to return the display name by default
-    // This makes it easier to print the desired format directly.
+    
     @Override
     public String toString() {
         return displayName;

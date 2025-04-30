@@ -57,17 +57,14 @@ public class Appointment {
 
     public void setFeedback(Feedback feedback) {
         this.feedback = feedback;
-        // Optional: Link feedback back to this appointment
-        // if (feedback != null) {
-        //     feedback.setAppointment(this); // Requires setAppointment in Feedback
-        // }
+       
     }
 
     @Override
     public String toString() {
         return "Appointment{" +
                "id='" + appointmentId + '\'' +
-               ", student=" + student.getName() + // Avoid infinite recursion
+               ", student=" + student.getName() + 
                ", category=" + category +
                ", dateTime=" + dateTime +
                ", status=" + status +

@@ -5,13 +5,13 @@ import java.util.UUID;
 
 public class Feedback {
     private String feedbackId;
-    private Appointment appointment; // Link back to the appointment
+    private Appointment appointment; 
     private int rating;
     private String comments;
 
     // Constructor now takes the appointment it's for
     public Feedback(Appointment appointment, int rating, String comments) {
-        this.feedbackId = UUID.randomUUID().toString(); // Simple unique ID
+        this.feedbackId = UUID.randomUUID().toString(); 
         this.appointment = appointment;
         this.rating = rating;
         this.comments = comments;
@@ -34,14 +34,13 @@ public class Feedback {
         return comments;
     }
 
-    // Setter for appointment removed, set via constructor
+    // Setters
 
     @Override
     public String toString() {
         return "Feedback{" +
                "id='" + feedbackId + '\'' +
-               // Avoid infinite loop: don't print full appointment again
-               ", appointmentId='" + (appointment != null ? appointment.getAppointmentId() : "null") + '\'' +
+                ", appointmentId='" + (appointment != null ? appointment.getAppointmentId() : "null") + '\'' +
                ", rating=" + rating +
                ", comments='" + comments + '\'' +
                '}';
