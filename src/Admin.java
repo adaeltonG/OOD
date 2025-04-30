@@ -9,7 +9,7 @@ public class Admin {
     private String adminId;
     private String name;
     private String email;
-    private String role;  // e.g., "Support Staff", "System Admin", etc.
+    private String role;  
 
     public Admin(String adminId, String name, String email, String role) {
         this.adminId = adminId;
@@ -121,7 +121,7 @@ public class Admin {
                '}';
     }
 
-    // equals and hashCode based on adminId for comparisons
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
