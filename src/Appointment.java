@@ -13,7 +13,7 @@ public class Appointment {
     private Feedback feedback; // Can be null initially
 
     public Appointment(Student student, Category category, LocalDateTime dateTime) {
-        this.appointmentId = UUID.randomUUID().toString(); // Simple unique ID
+        this.appointmentId = UUID.randomUUID().toString(); 
         this.student = student;
         this.category = category;
         this.dateTime = dateTime;
