@@ -139,7 +139,7 @@ public class CampusAssistSystem {
     public List<Admin> getAllAdmins() {
         return new ArrayList<>(admins.values());
     }
-
+// to request an appointment by the student
     public Appointment requestAppointment(Student student, Category category, LocalDateTime dateTime) {
         if (student == null || !students.containsKey(student.getStudentId())) {
             System.out.println("Error: Can`t schedule appointment for unknown student!");

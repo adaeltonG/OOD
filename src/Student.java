@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime; // Added for method stubs later
 
-// Import Appointment now that it's defined
-// removed: import src.Appointment;
-// removed: import src.Category; // Added for method stubs later
-// removed: import src.Feedback; // Added for method stubs later
+
 
 public class Student {
     private String studentId;
